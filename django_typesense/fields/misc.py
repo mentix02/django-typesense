@@ -1,11 +1,11 @@
 import time
 from typing import Any
 
-from django_typesense.fields import Field
+from django_typesense.fields import BaseField
 from django_typesense.fields.number import LongField
 
 
-class BooleanField(Field):
+class BooleanField(BaseField):
     def from_value(self, value: Any) -> bool:
         return bool(value)
 

@@ -4,7 +4,7 @@ from typing import Any, List, Type, Dict, Optional
 
 from django.db.models import Model
 
-from django_typesense.fields import Field, TypesenseFieldType
+from django_typesense.fields import BaseField, TypesenseFieldType
 from django_typesense.fields.number import LongField, FloatField, IntegerField
 
 
@@ -22,14 +22,14 @@ class Collection(abc.ABC):
 
         for attr_name in dir(self):
             attr = getattr(self, attr_name)
-            if isinstance(attr, Field):
+            if isinstance(attr, BaseField):
                 attr_fields = attr.to_typesense_field_objs(attr_name)
                 fields.extend(attr_fields)
 
         return fields
 
     @cache
-    def _get_fields_dict(self) -> Dict[str, Field]:
+    def _get_fields_dict(self) -> Dict[str, BaseField]:
         """
         Returns a dict of Field objects with their attr_name
         (or provided name) as the key.
@@ -38,7 +38,7 @@ class Collection(abc.ABC):
 
         for attr_name in dir(self):
             attr = getattr(self, attr_name)
-            if isinstance(attr, Field):
+            if isinstance(attr, BaseField):
                 fields[attr.name or attr_name] = attr
 
         return fields

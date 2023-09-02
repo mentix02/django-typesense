@@ -12,7 +12,7 @@ SinglularTypesenseFieldsType = Tuple[TypesenseFieldType]
 MultipleTypesenseFieldsType = Tuple[TypesenseFieldType, TypesenseFieldType]
 
 
-class Field(abc.ABC):
+class BaseField(abc.ABC):
     def __init__(
         self,
         field_type: str,
@@ -58,7 +58,7 @@ class Field(abc.ABC):
     def from_value(self, value: Any) -> Any:
         pass
 
-    def _empty_value_boolean_field(self) -> Field:
+    def _empty_value_boolean_field(self) -> BaseField:
         # Avoid caching this BooleanField - it may seem tempting
         # since it looks like this field will have to be imported
         # everytime this method is called. But Python caches imports
@@ -85,7 +85,7 @@ class Field(abc.ABC):
         >>> collection = SomeCollection(...)
         >>> fields = list(
         ...     filter(
-        ...         lambda attr: isinstance(attr, Field),
+        ...         lambda attr: isinstance(attr, BaseField),
         ...         (getattr(self, attr_name) for attr_name in dir(self)), # noqa
         ...     ),
         ... )

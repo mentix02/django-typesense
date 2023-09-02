@@ -1,10 +1,10 @@
 from typing import Any
 
-from django_typesense.fields import Field
+from django_typesense.fields import BaseField
 from django_typesense.fields.string import StringField
 
 
-class IntegerField(Field):
+class IntegerField(BaseField):
     """
     Field to represent 32-bit integers upto 2,147,483,647.
     """
@@ -17,7 +17,7 @@ class IntegerField(Field):
         super().__init__(*args, **kwargs)
 
 
-class LongField(Field):
+class LongField(BaseField):
     """
     Field to represent 64-bit integers larger than 2,147,483,647.
     """
@@ -30,7 +30,7 @@ class LongField(Field):
         super().__init__(*args, **kwargs)
 
 
-class FloatField(Field):
+class FloatField(BaseField):
     def from_value(self, value: Any) -> Any:
         return float(value)
 

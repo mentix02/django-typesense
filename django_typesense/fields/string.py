@@ -1,9 +1,9 @@
 from typing import Any
 
-from django_typesense.fields import Field
+from django_typesense.fields import BaseField
 
 
-class StringField(Field):
+class StringField(BaseField):
     def from_value(self, value: Any) -> str:
         return str(value)
 
