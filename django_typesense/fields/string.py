@@ -16,3 +16,9 @@ class EmailField(StringField):
     def __init__(self, *args, **kwargs):
         kwargs["token_separators"] = {"+", "-", "@", "."}
         super().__init__(*args, **kwargs)
+
+
+class URLField(StringField):
+    def __init__(self, *args, **kwargs):
+        kwargs["token_separators"] = {":", "/", "."}
+        super().__init__(*args, **kwargs)

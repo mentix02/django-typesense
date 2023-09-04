@@ -1,6 +1,6 @@
 import abc
 from functools import cache
-from typing import Any, List, Type, Dict, Optional
+from typing import Any, Set, List, Type, Dict, Optional
 
 from django.db.models import Model
 
@@ -42,6 +42,14 @@ class Collection(abc.ABC):
                 fields[attr.name or attr_name] = attr
 
         return fields
+
+    def _get_token_separators(self) -> Set[str]:
+        token_separators: Set[str] = set()
+
+        for field in self._get_fields_dict().values():
+            token_separators.update(field.token_separators)
+
+        return token_separators
 
     def to_typesense_schema(self) -> Dict[str, Any]:
         collection_name = self.Meta.name

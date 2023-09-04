@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import abc
-from typing import Any, Dict, Union, Tuple, Optional
+from typing import Set, Any, Dict, Union, Tuple, Optional
 
 
 TypesenseFieldKey = str
@@ -23,7 +23,7 @@ class BaseField(abc.ABC):
         source: Optional[str] = None,
         index_empty_values: bool = False,
         facet_index_empty_values: bool = False,
-        token_separators: Optional[set[str]] = None,  # helpful for tokenizing special strings like URLS, emails, etc.
+        token_separators: Optional[Set[str]] = None,  # helpful for tokenizing special strings like URLS, emails, etc.
     ):
         self.index: bool = index
         self.facet: bool = facet
