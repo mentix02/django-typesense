@@ -79,22 +79,23 @@ class Collection(abc.ABC):
         if hasattr(self.Meta, "order_by") and self.Meta.order_by is not None:
             # check if the `order_by` field is a valid IntegerField or FloatField
 
-            for name, field in self._get_fields_dict().items():
-                if name == self.Meta.order_by:
-                    if not issubclass(type(field), (LongField, FloatField, IntegerField)):
-                        raise ValueError(
-                            f"order_by field '{self.Meta.order_by}' is not an "
-                            f"IntegerField or FloatField in collection '{class_name}'."
-                            f"Got {type(field)} instead."
-                        )
-                    elif field.optional:
-                        raise ValueError(
-                            f"order_by field '{self.Meta.order_by}' cannot be optional "
-                            f"in collection '{class_name}'."
-                        )
-                    break
-            else:
-                raise ValueError(f"Field {self.Meta.order_by} does not exist in collection '{class_name}'.")
+            order_by_name = self.Meta.order_by
+
+            if order_by_name not in self._get_fields_dict():
+                raise ValueError(f"order_by field '{self.Meta.order_by}' does not exist in collection '{class_name}'.")
+
+            order_by_field = self._get_fields_dict().get(order_by_name)
+
+            if not issubclass(type(order_by_field), (LongField, FloatField, IntegerField)):
+                raise ValueError(
+                    f"order_by field '{self.Meta.order_by}' is not an "
+                    f"IntegerField or FloatField in collection '{class_name}'."
+                    f"Got <{type(order_by_field)}> instead."
+                )
+            elif order_by_field.optional:
+                raise ValueError(
+                    f"order_by field '{self.Meta.order_by}' cannot be optional " f"in collection '{class_name}'."
+                )
 
             schema["default_sorting_field"] = self.Meta.order_by
 

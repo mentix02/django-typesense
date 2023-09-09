@@ -2,6 +2,8 @@ from django.db import models
 
 
 class Author(models.Model):
+    email = models.EmailField()
+    website = models.URLField()
     name = models.CharField(max_length=255)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True)

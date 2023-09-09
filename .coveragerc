@@ -1,0 +1,14 @@
+[run]
+omit =
+    */vendor/*
+
+[report]
+exclude_lines =
+    pass
+    def __str__
+    def __repr__
+    pragma: no cover
+    raise RuntimeError
+    raise AssertionError
+    @(abc\.)?abstractmethod
+    raise NotImplementedError

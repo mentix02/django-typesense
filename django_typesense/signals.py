@@ -71,7 +71,7 @@ def sync_typesense_value_into_db(sender: Type[TypesenseAPIKey], instance: Typese
 
     resp = client.keys.create(
         {
-            "actions": instance.actions,
+            "actions": instance.actions.values_list("permission", flat=True),
             "description": instance.description,
             "collections": instance.collections,
             "expires_at": instance.expires_at_unix,
