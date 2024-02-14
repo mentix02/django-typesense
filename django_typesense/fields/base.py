@@ -8,7 +8,7 @@ TypesenseFieldKey = str
 TypesenseFieldValue = Union[str, bool]
 TypesenseFieldType = Dict[TypesenseFieldKey, TypesenseFieldValue]
 
-SinglularTypesenseFieldsType = Tuple[TypesenseFieldType]
+SingularTypesenseFieldsType = Tuple[TypesenseFieldType]
 MultipleTypesenseFieldsType = Tuple[TypesenseFieldType, TypesenseFieldType]
 
 
@@ -73,7 +73,7 @@ class BaseField(abc.ABC):
 
     def to_typesense_field_objs(
         self, name: Optional[str] = None
-    ) -> Union[SinglularTypesenseFieldsType, MultipleTypesenseFieldsType]:
+    ) -> Union[SingularTypesenseFieldsType, MultipleTypesenseFieldsType]:
         """
         Return a tuple of two fields to destructure the individual
         field types into the final schema object's `fields` list.
