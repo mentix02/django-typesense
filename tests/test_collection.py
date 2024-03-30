@@ -41,7 +41,7 @@ class CollectionTest(TestCase):
         comment_collection = CommentCollection()
         schema = comment_collection.to_typesense_schema()
 
-        self.assertEquals(schema["name"], "comments")
+        self.assertEqual(schema["name"], "comments")
 
         self.assertIsNotNone(schema["fields"])
 
@@ -53,15 +53,15 @@ class CollectionTest(TestCase):
         for field in schema["fields"]:
             expected_field = expected_fields[field["name"]]
             expected_field.update({"name": field["name"]})
-            self.assertEquals(field, expected_field)
+            self.assertEqual(field, expected_field)
 
-        self.assertEquals(schema["default_sorting_field"], CommentCollection.Meta.order_by)
+        self.assertEqual(schema["default_sorting_field"], CommentCollection.Meta.order_by)
 
     def test_valid_schema_generation(self):
         post_collection = PostCollection()
         schema = post_collection.to_typesense_schema()
 
-        self.assertEquals(schema["name"], "posts")
+        self.assertEqual(schema["name"], "posts")
 
         self.assertIsNotNone(schema["fields"])
 
@@ -73,4 +73,4 @@ class CollectionTest(TestCase):
         for field in schema["fields"]:
             expected_field = expected_fields[field["name"]]
             expected_field.update({"name": field["name"]})
-            self.assertEquals(field, expected_field)
+            self.assertEqual(field, expected_field)
